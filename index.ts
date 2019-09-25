@@ -1,39 +1,31 @@
-import * as capture from 'capture-chrome'
-import { writeFileSync } from 'fs'
+import * as puppeteer from 'puppeteer'
 
-export const squareCapture = (url:string, fileName?: string) => {
-  capture({
-    // 6:5
-    url: url,
-    width: 390,
-    height: 325
-  }).then(screenshot => {
-    const outputFileName = fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_min.png`
-    writeFileSync(outputFileName, screenshot)
-    console.log(outputFileName)
+export const squareCapture = async (url:string, fileName?: string) => {
+  const browser = await puppeteer.launch({
+    headless: true
   })
-  capture({
-    url: url,
-    width: 375,
-    height: 375
-  }).then(screenshot => {
-    const outputFileName = fileName ? `${__dirname}/${fileName}_square.png` : `${__dirname}/${Date.now()}_square.png`
-    writeFileSync(outputFileName, screenshot)
-    console.log(outputFileName)
+
+  const minPage = await browser.newPage()
+  await minPage.setViewport({width: 390,height: 325})
+  await minPage.goto(url)
+  await minPage.screenshot({
+    path: `${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_min.png`}`
   })
-  capture({
-    // 16:9
-    url: url,
-    width: 1366,
-    height: 768
-  }).then(screenshot => {
-    const outputFileName = fileName ? `${__dirname}/${fileName}.png` : `${__dirname}/${Date.now()}.png`
-    writeFileSync(outputFileName, screenshot)
-    console.log(outputFileName)
-  })
+  console.log(`save: ${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_min.png`}`);
+  await minPage.close()
+
+  const squarePage = await browser.newPage()
+  await squarePage.setViewport({width: 375,height: 375})
+  await squarePage.goto(url)
+  await squarePage.screenshot({path: `${fileName ? `${__dirname}/${fileName}_square.png` : `${__dirname}/${Date.now()}_square.png`}`})
+  console.log(`save: ${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_square.png`}`);
+  await squarePage.close()
+
+  await browser.close()
 }
 
 // test
-squareCapture('https://www.hanamaruudon.com/sp/', 'hanamaruudon.com')
-squareCapture('https://www.marugame-seimen.com', 'marugame-seimen.com')
-squareCapture('https://www.gyomusuper.jp/', 'gyomusuper.jp')
+squareCapture('https://www.workman.co.jp/workman-plus', 'workman-plus')
+squareCapture('https://www.seria-m.jp/sp/', 'seria')
+squareCapture('https://www.marugame-seimen.com/', 'marugame-seimen')
+squareCapture('https://www.starbucks.co.jp/', 'starbucks')
