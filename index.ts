@@ -5,23 +5,22 @@ export const squareCapture = async (url:string, fileName?: string) => {
     headless: true
   })
 
-  const minPage = await browser.newPage()
-  await minPage.setViewport({width: 390,height: 325})
-  await minPage.goto(url)
-  await minPage.screenshot({
-    path: `${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_min.png`}`
-  })
-  console.log(`save: ${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_min.png`}`);
-  await minPage.close()
-
-  const squarePage = await browser.newPage()
-  await squarePage.setViewport({width: 375,height: 375})
-  await squarePage.goto(url)
-  await squarePage.screenshot({path: `${fileName ? `${__dirname}/${fileName}_square.png` : `${__dirname}/${Date.now()}_square.png`}`})
-  console.log(`save: ${fileName ? `${__dirname}/${fileName}_min.png` : `${__dirname}/${Date.now()}_square.png`}`);
-  await squarePage.close()
+  await getCapture(url, fileName, browser, 390, 325, 'min')
+  await getCapture(url, fileName, browser, 375, 375, 'square')
 
   await browser.close()
+}
+
+const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browser, width:number, height:number, mode:string) => {
+  const page = await browser.newPage()
+  await page.emulate(puppeteer.devices['iPhone 8'])
+  await page.setViewport({width: width,height: height})
+  await page.goto(url)
+  await page.screenshot({
+    path: `${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
+  })
+  console.log(`save: ${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
+  await page.close()
 }
 
 // test
