@@ -2,7 +2,7 @@ import * as puppeteer from 'puppeteer'
 
 export const squareCapture = async (url:string, fileName?: string) => {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   })
 
   await getCapture(url, fileName, browser, 390, 325, 'min')
@@ -16,6 +16,7 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
   await page.emulate(puppeteer.devices['iPhone 8'])
   await page.setViewport({width: width,height: height})
   await page.goto(url)
+  await page.waitFor(8000)
   await page.screenshot({
     path: `${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
   })
