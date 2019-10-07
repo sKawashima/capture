@@ -2,10 +2,10 @@ import * as puppeteer from 'puppeteer'
 
 export const squareCapture = async (url:string, fileName?: string) => {
   const browser = await puppeteer.launch({
-    headless: false
+    headless: true
   })
 
-  await getCapture(url, fileName, browser, 390, 325, 'min')
+  // await getCapture(url, fileName, browser, 390, 325, 'min')
   await getCapture(url, fileName, browser, 375, 375, 'square')
 
   await browser.close()
@@ -28,4 +28,4 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
 squareCapture('https://www.workman.co.jp/workman-plus', 'workman-plus')
 squareCapture('https://www.seria-m.jp/sp/', 'seria')
 squareCapture('https://www.marugame-seimen.com/', 'marugame-seimen')
-squareCapture('https://www.starbucks.co.jp/', 'starbucks')
+squareCapture('https://zaim.net', 'zaim-net')
