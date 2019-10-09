@@ -2,6 +2,10 @@ import * as puppeteer from 'puppeteer'
 
 export const squareCapture = async (url:string, fileName?: string) => {
   const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox'
+    ],
     headless: true
   })
 
@@ -18,9 +22,9 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
   await page.goto(url)
   await page.waitFor(8000)
   await page.screenshot({
-    path: `${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
+    path: `${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
   })
-  console.log(`save: ${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
+  console.log(`save: ${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
   await page.close()
 }
 
