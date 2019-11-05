@@ -16,11 +16,11 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
   await page.emulate(puppeteer.devices['iPhone 8'])
   await page.setViewport({width: width,height: height})
   await page.goto(url)
-  await page.waitFor(8000)
+  await page.waitFor(1000)
   await page.screenshot({
-    path: `${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
+    path: `${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
   })
-  console.log(`save: ${fileName ? `${__dirname}/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
+  console.log(`save: ${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
   await page.close()
 }
 
@@ -28,4 +28,3 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
 squareCapture('https://www.workman.co.jp/workman-plus', 'workman-plus')
 squareCapture('https://www.seria-m.jp/sp/', 'seria')
 squareCapture('https://www.marugame-seimen.com/', 'marugame-seimen')
-squareCapture('https://zaim.net', 'zaim-net')
