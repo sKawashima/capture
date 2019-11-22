@@ -15,12 +15,13 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
   const page = await browser.newPage()
   await page.emulate(puppeteer.devices['iPhone 8'])
   await page.setViewport({width: width,height: height})
+  console.log(`Load: ${url}`);
   await page.goto(url)
   await page.waitFor(1000)
   await page.screenshot({
-    path: `${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`
+    path: `${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/output/${Date.now()}_${mode}.png`}`
   })
-  console.log(`save: ${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
+  console.log(`Save: ${fileName ? `${__dirname}/output/${fileName}_${mode}.png` : `${__dirname}/${Date.now()}_${mode}.png`}`);
   await page.close()
 }
 
