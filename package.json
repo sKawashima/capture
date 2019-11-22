@@ -11,12 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "capture-chrome": "^3.0.1",
-    "puppeteer": "^1.20.0"
+    "puppeteer": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.7.4",
-    "@types/puppeteer": "^1.19.1",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.6.2"
+    "@types/node": "^12.12.11",
+    "@types/puppeteer": "^2.0.0",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
   }
 }
