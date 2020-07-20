@@ -14,15 +14,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run start
+    - run:
+      using: 'docker'
+      image: 'Dockerfile'
+    - run: |
+      git config user.email 'update-capture@example.com'
+      git config user.name 'update-capture'
+      git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+      git checkout -b update-capture
+      git add .
+      git diff --quiet && git diff --staged --quiet || (git commit -m "${COMMIT_MSG}"; git push origin update-capture)
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v2
