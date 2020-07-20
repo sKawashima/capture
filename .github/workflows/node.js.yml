@@ -15,9 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - run:
-      using: 'docker'
-      image: 'Dockerfile'
+    - run: docker build alpha/capture-update -t capture && docker run capture
     - name: Commit
       run: |
         git config user.email 'update-capture@example.com'
