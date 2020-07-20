@@ -25,13 +25,12 @@ jobs:
 
     - run: npm i && npm start
 
-    # - name: Commit
-    #   run: |
-    #     git config user.email 'update-capture@example.com'
-    #     git config user.name 'update-capture'
-    #     git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-    #     git checkout -b update-capture
-    #     git add .
-    #     git diff --quiet && git diff --staged --quiet || (git commit -m "Update capture"; git push origin update-capture)
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2
+      with:
+        commit-message: Update capture image
+        title: '[Monthly] Update capture images'
+        body: |
+          毎月恒例の画像更新です。
+          顔が明白にわかる芸能人などの人物が写っていない場合、このままマージしてデプロイをお願いします。
+          もし顔が明白にわかる人物が写っている場合、手動で変更をお願いします。
