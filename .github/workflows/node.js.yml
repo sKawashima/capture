@@ -3,8 +3,13 @@
 
 name: Node.js CI
 
-schedule:
-  - cron: 0 0 * * *
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: 0 0 1 * *
 
 jobs:
   build:
@@ -31,3 +36,4 @@ jobs:
           毎月恒例の画像更新です。
           顔が明白にわかる芸能人などの人物が写っていない場合、このままマージしてデプロイをお願いします。
           もし顔が明白にわかる人物が写っている場合、手動で変更をお願いします。
+        reviewers: sKawashima
