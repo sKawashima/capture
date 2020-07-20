@@ -29,3 +29,5 @@ const getCapture = async (url:string, fileName:string,  browser:puppeteer.Browse
 squareCapture('https://www.workman.co.jp/workman-plus', 'workman-plus')
 squareCapture('https://www.seria-m.jp/sp/', 'seria')
 squareCapture('https://www.marugame-seimen.com/', 'marugame-seimen')
+squareCapture('https://www.ueshima-coffee-ten.jp/', 'ueshima-coffe_square')
+squareCapture('https://www.starbucks.co.jp/', 'starbucks-coffee_square')
