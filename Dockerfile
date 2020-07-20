@@ -59,6 +59,6 @@ RUN pwd&&ls -l
 
 RUN npm install
 
-COPY src/ src/
+COPY ./index.ts ./index.ts
 
 CMD npm start
